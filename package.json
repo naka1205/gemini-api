@@ -1,0 +1,30 @@
+{
+  "name": "gemini-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gemini API 代理 + 多 Key 负载均衡（Node.js / PM2 版，源自 gemini-balance-lite）",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "NODE_ENV=development DEBUG=true node --watch src/index.js",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:reload": "pm2 reload ecosystem.config.cjs",
+    "pm2:stop": "pm2 delete gemini-api",
+    "pm2:logs": "pm2 logs gemini-api",
+    "pm2:save": "pm2 save",
+    "check:api": "node scripts/check-api.mjs",
+    "check": "node --check src/index.js && node --check src/handle_request.js && node --check src/openai.js && node --check src/verify_keys.js && node --check src/api_keys.js && node --check src/http_adapter.js"
+  },
+  "keywords": [
+    "gemini",
+    "proxy",
+    "load-balancer",
+    "pm2",
+    "openai-compatible"
+  ],
+  "license": "MIT"
+}
